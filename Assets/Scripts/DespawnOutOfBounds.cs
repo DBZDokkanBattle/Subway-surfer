@@ -10,7 +10,8 @@ public class DespawnOutOfBounds : MonoBehaviour
     {
         player = GameObject.Find("Player");
     }
-    void Update()
+
+    private void Update()
     {
         if (transform.position.z - player.transform.position.z < -20) { Destroy(gameObject); }
     }
