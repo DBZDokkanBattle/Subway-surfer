@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
     private float lastHorizontalInput;
     // Update is called once per frame
+    
+    
     void Update()
     {
         if (horizontalInput != 0)
