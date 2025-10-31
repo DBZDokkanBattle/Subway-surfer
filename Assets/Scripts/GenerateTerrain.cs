@@ -19,6 +19,7 @@ public class GenerateTerrain : MonoBehaviour
         }
         else if(GameManager.GetComponent<GameManager>().generatedTerrains == GameManager.GetComponent<GameManager>().maxTerrains)
         {
+            GameManager.GetComponent<GameManager>().increaseGeneratedTerrain();
             Instantiate(finish, new Vector3(0, 0, 50) + transform.position, Quaternion.identity); 
         }
     }
