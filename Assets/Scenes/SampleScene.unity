@@ -829,7 +829,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1199124849
 Transform:
   m_ObjectHideFlags: 0
@@ -1059,6 +1059,10 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.0047596693
       objectReference: {fileID: 0}
+    - target: {fileID: 5482317532951772874, guid: 84f2f3897d8c4704eb53c0935585b21d, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1139197707}
     - target: {fileID: 6294703398953441606, guid: 84f2f3897d8c4704eb53c0935585b21d, type: 3}
       propertyPath: m_Name
       value: Plane
