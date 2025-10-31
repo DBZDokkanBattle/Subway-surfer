@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class generateObstacle : MonoBehaviour
 {
+    public GameObject player;
+    public GameObject[] ObstaclePrefabs;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -12,5 +14,25 @@ public class generateObstacle : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        int lane = Random.Range(-1, 2);
+        int ObstacleIndex = Random.Range(0, ObstaclePrefabs.Length);
+        Vector3 spawnPos = new Vector3(lane, 0.5f, 40 + player.transform.position.z);
+
+        Instantiate(ObstaclePrefabs[ObstacleIndex], spawnPos, ObstaclePrefabs[ObstacleIndex].transform.rotation);
+    }
+
+    void spawnObstaclePrefabs()
+    {
+
+        int lane = Random.Range(-1, 2);
+        int ObstacleIndex = Random.Range(0, ObstaclePrefabs.Length);
+        Vector3 spawnPos = new Vector3(lane, 0.5f, 40 + player.transform.position.z);
+
+        Instantiate(ObstaclePrefabs[ObstacleIndex], spawnPos, ObstaclePrefabs[ObstacleIndex].transform.rotation);
+
     }
 }
