@@ -20,7 +20,13 @@ public class generateObstacle : MonoBehaviour
     {
         int lane = Random.Range(-1, 2);
         int ObstacleIndex = Random.Range(0, ObstaclePrefabs.Length);
-        Vector3 spawnPos = new Vector3(lane, 0.5f, 40 + player.transform.position.z);
+        Vector3 spawnPos = new Vector3(lane, 0.5f, 60 + player.transform.position.z);
+
+        Instantiate(ObstaclePrefabs[ObstacleIndex], spawnPos, ObstaclePrefabs[ObstacleIndex].transform.rotation);
+
+        lane = Random.Range(-1, 2);
+        ObstacleIndex = Random.Range(0, ObstaclePrefabs.Length);
+        spawnPos = new Vector3(lane, 0.5f, 60 + player.transform.position.z);
 
         Instantiate(ObstaclePrefabs[ObstacleIndex], spawnPos, ObstaclePrefabs[ObstacleIndex].transform.rotation);
     }
