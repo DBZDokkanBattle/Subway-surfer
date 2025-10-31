@@ -1,141 +1,96 @@
 using UnityEngine;
 using TMPro;
-using System.Globalization;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 public class Timer : MonoBehaviour
 {
-    [Header("Components")]
-    [SerializeField] private TextMeshProUGUI timerText;
+    [Header("UI Component")]
+    public TextMeshProUGUI timerText;   // Drag a TMP text here if you want to see the time on screen
 
     [Header("Timer Settings")]
-    [Tooltip("Starting value in seconds.")]
-    [SerializeField] private float currentTime = 0f;
-    [Tooltip("If true, time decreases toward zero; otherwise it counts up.")]
-    [SerializeField] private bool countDown = false;
-    [Tooltip("Start running automatically on Start().")]
-    [SerializeField] private bool autoStart = true;
-    [Tooltip("Use unscaled time (ignores Time.timeScale).")]
-    [SerializeField] private bool useUnscaledTime = false;
+    public float currentTime = 0f;      // Starts at 0 seconds
+    public bool countDown = false;      // false = count up (stopwatch), true = countdown
+    public bool running = true;         // controls if timer is ticking
 
-    [Header("Display")]
-    [SerializeField] private DisplayMode displayMode = DisplayMode.MM_SS_CC; // pretty default
-    [SerializeField] private int decimals = 2; // used only for RawSeconds mode
+    [Header("Format Settings")]
+    public bool hasFormat = true;
+    public TimerFormats format = TimerFormats.HundredthDecimal;
 
     [Header("Events")]
-    public UnityEvent onTimerEnded;   // fired once when countdown reaches zero
-    public UnityEvent<float> onTimerUpdated; // passes currentTime each tick (optional)
+    public UnityEvent onTimerEnded;     // you can hook this up to call things when time runs out (optional)
 
-    private bool isRunning = false;
-    private bool endedInvoked = false;
+    private Dictionary<TimerFormats, string> timeFormats = new Dictionary<TimerFormats, string>();
+    private bool endedInvoked;
 
     private void Awake()
     {
-        // Ensure initial text is shown in editor & at runtime before Start()
-        UpdateText();
-    }
-
-    private void Start()
-    {
-        if (autoStart)
+        // Define number formats
+        timeFormats = new Dictionary<TimerFormats, string>
         {
-            isRunning = true;
-            endedInvoked = false;
-        }
+            { TimerFormats.Whole, "0" },
+            { TimerFormats.TenthDecimal, "0.0" },
+            { TimerFormats.HundredthDecimal, "0.00" }
+        };
     }
 
     private void Update()
     {
-        if (!isRunning) return;
+        if (!running) return;
 
-        float dt = useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;
-        currentTime += countDown ? -dt : dt;
+        // Increase or decrease time
+        currentTime += countDown ? -Time.deltaTime : Time.deltaTime;
 
+        // Stop if counting down and reached 0
         if (countDown && currentTime <= 0f)
         {
             currentTime = 0f;
-            UpdateText();
-            onTimerUpdated?.Invoke(currentTime);
+            running = false;
 
             if (!endedInvoked)
             {
                 endedInvoked = true;
-                onTimerEnded?.Invoke();
+                onTimerEnded?.Invoke(); // calls anything hooked in the Inspector
             }
-            isRunning = false; // stop ticking
-            return;
         }
 
-        UpdateText();
-        onTimerUpdated?.Invoke(currentTime);
+        // Update on-screen text
+        SetTimerText();
     }
 
-    private void UpdateText()
+    private void SetTimerText()
     {
         if (timerText == null) return;
 
-        switch (displayMode)
-        {
-            case DisplayMode.RawSeconds:
-                timerText.text = currentTime.ToString("0." + new string('0', Mathf.Clamp(decimals, 0, 3)),
-                                                     CultureInfo.InvariantCulture);
-                break;
-
-            case DisplayMode.MM_SS:
-                timerText.text = FormatClock(currentTime, includeCentis: false);
-                break;
-
-            case DisplayMode.MM_SS_CC:
-                timerText.text = FormatClock(currentTime, includeCentis: true);
-                break;
-        }
+        if (hasFormat)
+            timerText.text = currentTime.ToString(timeFormats[format]);
+        else
+            timerText.text = currentTime.ToString();
     }
 
-    private static string FormatClock(float seconds, bool includeCentis)
+    // ---------- Public helper methods ----------
+
+    // Reset timer to 0 and start again
+    public void ResetTimer()
     {
-        if (seconds < 0f) seconds = -seconds;
-        int totalMs = Mathf.FloorToInt(seconds * 1000f);
-        int mins = (totalMs / 1000) / 60;
-        int secs = (totalMs / 1000) % 60;
-
-        if (!includeCentis)
-            return $"{mins:00}:{secs:00}";
-
-        int centis = (totalMs % 1000) / 10;
-        return $"{mins:00}:{secs:00}:{centis:00}";
-    }
-
-    // -------- Public API for UI/buttons --------
-    public void StartTimer(float startValueSeconds = 0f, bool startCountingDown = false)
-    {
-        currentTime = startValueSeconds;
-        countDown = startCountingDown;
+        currentTime = 0f;
+        running = true;
         endedInvoked = false;
-        isRunning = true;
-        UpdateText();
     }
 
-    public void StopTimer() { isRunning = false; }
-    public void PauseTimer() { isRunning = false; }
-    public void ResumeTimer() { if (!endedInvoked) isRunning = true; }
-    public void ResetTimer(float valueSeconds = 0f)
-    {
-        currentTime = valueSeconds;
-        endedInvoked = false;
-        UpdateText();
-    }
+    // Pause the timer
+    public void PauseTimer() => running = false;
 
+    // Resume the timer
+    public void ResumeTimer() => running = true;
+
+    // Get time in seconds (for ScoreSubmitter)
     public float GetSeconds() => Mathf.Max(0f, currentTime);
-    public int GetMilliseconds() => Mathf.Max(0, Mathf.FloorToInt(currentTime * 1000f));
+}
 
-    // Optional helpers to change settings at runtime
-    public void SetDisplayMode(int mode) => displayMode = (DisplayMode)mode;
-    public void UseUnscaledTime(bool v) => useUnscaledTime = v;
-
-    public enum DisplayMode
-    {
-        RawSeconds,   // e.g., 12.34
-        MM_SS,        // 01:23
-        MM_SS_CC      // 01:23:45 (centiseconds)
-    }
+public enum TimerFormats
+{
+    Whole,
+    TenthDecimal,
+    HundredthDecimal
 }

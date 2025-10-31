@@ -1,36 +1,47 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 
 public class ScoreSubmitter : MonoBehaviour
 {
-    [SerializeField] private Timer timer;                 // your Timer script
-    [SerializeField] private TMP_InputField inputName;    // the name box
-    [SerializeField] private Leaderboard leaderboard;     // the script above
+    [Header("UI (optional display)")]
+    [SerializeField] private TextMeshProUGUI inputScore;   // optional: we WRITE the formatted time here
+    [SerializeField] private TMP_InputField inputName;
 
-    // Hook this to your Submit button
-    public void Submit()
+    [Header("Refs")]
+    [SerializeField] private Timer timer;                  // will be auto-filled in Awake
+
+    public UnityEvent<string, int> submitScoreEvent;
+
+    private const float SCORE_SCALE = 100000f;
+
+    private void Awake()
     {
-        if (timer == null || leaderboard == null) return;
-
-        string username = (inputName != null && !string.IsNullOrWhiteSpace(inputName.text))
-            ? inputName.text.Trim()
-            : "Player";
-
-        // Upload NEGATIVE milliseconds so fastest time ranks highest
-        int ms = Mathf.Max(0, timer.GetMilliseconds());
-        int score = -ms;
-
-        leaderboard.SetLeaderboardEntry(username, score);
-        Debug.Log($"Submitted {username}: {FormatMilliseconds(ms)} (stored {score})");
+        if (timer == null) timer = GetComponentInParent<Timer>(true); // <-- Canvas-friendly auto-find
     }
 
-    private static string FormatMilliseconds(int ms)
+    public void SubmitScore()
     {
-        if (ms < 0) ms = -ms;
-        int total = ms / 1000;
-        int minutes = total / 60;
-        int seconds = total % 60;
-        int centis = (ms % 1000) / 10;
-        return $"{minutes:00}:{seconds:00}:{centis:00}";
+        if (timer == null)
+        {
+            Debug.LogWarning("ScoreSubmitter: Timer reference not set (no Timer on this Canvas?).");
+            return;
+        }
+
+        float seconds = Mathf.Max(0.01f, timer.GetSeconds());    // avoid /0
+        int convertedScore = Mathf.RoundToInt(SCORE_SCALE / seconds);
+
+        if (inputScore != null) inputScore.text = FormatAsClock(seconds);
+
+        string nameToUse = string.IsNullOrWhiteSpace(inputName?.text) ? "Player" : inputName.text.Trim();
+        submitScoreEvent?.Invoke(nameToUse, convertedScore);
+    }
+
+    // mm:ss.ff
+    private string FormatAsClock(float s)
+    {
+        int m = Mathf.FloorToInt(s / 60f);
+        float sec = s % 60f;
+        return $"{m:00}:{sec:00.00}";
     }
 }
