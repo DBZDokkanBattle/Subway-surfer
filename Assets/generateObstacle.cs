@@ -24,11 +24,14 @@ public class generateObstacle : MonoBehaviour
 
         Instantiate(ObstaclePrefabs[ObstacleIndex], spawnPos, ObstaclePrefabs[ObstacleIndex].transform.rotation);
 
-        lane = Random.Range(-1, 2);
-        ObstacleIndex = Random.Range(0, ObstaclePrefabs.Length);
-        spawnPos = new Vector3(lane, 0.5f, 60 + player.transform.position.z);
+        if (Random.Range(1, 3) == 1)
+        {
+            lane = Random.Range(-1, 2);
+            ObstacleIndex = Random.Range(0, ObstaclePrefabs.Length);
+            spawnPos = new Vector3(lane, 0.5f, 60 + player.transform.position.z);
 
-        Instantiate(ObstaclePrefabs[ObstacleIndex], spawnPos, ObstaclePrefabs[ObstacleIndex].transform.rotation);
+            Instantiate(ObstaclePrefabs[ObstacleIndex], spawnPos, ObstaclePrefabs[ObstacleIndex].transform.rotation);
+        }
     }
 
     void spawnObstaclePrefabs()

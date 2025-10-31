@@ -34,12 +34,12 @@ public class MoveForward : MonoBehaviour
     public void addTempSpeed() {
         if (tempSpeed < speed*1.5f)
         {
-            tempSpeed += speed * 1.5f/10f+10;
+            tempSpeed += speed * 1.5f/10f;
         }
     }
 
     void speedUp() {
-        speed += 0.1f;
-        if(speed >= 0){ speed += 2; }
+        speed += 1f;
+        if(speed >= 0){ speed += 0.5f; }
     }
 }

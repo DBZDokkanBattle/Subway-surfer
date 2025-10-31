@@ -14,6 +14,6 @@ public class CameraFollow : MonoBehaviour
         transform.position = player.transform.position + offset;
 
         //Camera.main.fieldOfView = Mathf.Lerp(baseFov, baseFov + player.GetComponent<MoveForward>().tempSpeed/10, 0);
-        Camera.main.fieldOfView = baseFov+ player.GetComponent<MoveForward>().speed / 20 + player.GetComponent<MoveForward>().tempSpeed / 10;
+        Camera.main.fieldOfView = baseFov+ player.GetComponent<MoveForward>().speed / 20 + player.GetComponent<MoveForward>().tempSpeed/5;
     }
 }
