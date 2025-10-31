@@ -39,7 +39,7 @@ public class MoveForward : MonoBehaviour
     }
 
     void speedUp() {
-        speed += 0.5f;
+        speed += 0.2f;
         if(speed >= 0){ speed += 2; }
     }
 }
