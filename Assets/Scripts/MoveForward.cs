@@ -34,7 +34,7 @@ public class MoveForward : MonoBehaviour
     public void addTempSpeed() {
         if (tempSpeed < speed*1.5f)
         {
-            tempSpeed += speed * 1.5f/10f;
+            tempSpeed += speed * 1.5f/(tempSpeed+1);
         }
     }
 
