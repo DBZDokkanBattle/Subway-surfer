@@ -20,15 +20,23 @@ public class MoveForward : MonoBehaviour
         float currentSpeed = speed + tempSpeed;
         transform.Translate(Vector3.forward * Time.deltaTime * currentSpeed);
 
-        // Reduce tempSpeed gradually
+        
         if (tempSpeed > 0)
             tempSpeed -= 0.05f;
         if (tempSpeed < 0)
             tempSpeed = 0;
 
         
-        if(fishAnim != null)
-            fishAnim.speed = Mathf.Clamp(currentSpeed / 10f, 0.2f, 2f); 
+        if (fishAnim != null)
+        {
+            fishAnim.speed = Mathf.Clamp(currentSpeed / 10f, 0.2f, 2f);
+
+            
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+                fishAnim.SetTrigger("Turn_Left");
+            else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+                fishAnim.SetTrigger("Turn_Right");
+        }
     }
 
     public void hitObject()

@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0b0f5366-cd90-42d9-9b28-d7bed7471eca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Subway-surfer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Subway-surfer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/ShlathewGame.fbx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/ShlathewGame.fbx.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Collision.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Collision.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/MoveForward.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MoveForward.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,7 +27,7 @@
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "git-widget-placeholder": "adding-new-fish",
+    "git-widget-placeholder": "animation-for-left-right",
     "node.js.selected.package.tslint": "(autodetect)"
   }
 }]]></component>
