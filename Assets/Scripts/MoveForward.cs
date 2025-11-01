@@ -28,7 +28,7 @@ public class MoveForward : MonoBehaviour
 
         
         if(fishAnim != null)
-            fishAnim.speed = Mathf.Clamp(currentSpeed / 10f, 0.1f, 3f); 
+            fishAnim.speed = Mathf.Clamp(currentSpeed / 10f, 0.2f, 2f); 
     }
 
     public void hitObject()
