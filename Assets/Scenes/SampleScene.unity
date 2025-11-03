@@ -1281,11 +1281,31 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!1 &420426692 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6294703398953441606, guid: 84f2f3897d8c4704eb53c0935585b21d, type: 3}
+  m_PrefabInstance: {fileID: 7115075229509802403}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &420426699 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8194433416580196243, guid: 84f2f3897d8c4704eb53c0935585b21d, type: 3}
   m_PrefabInstance: {fileID: 7115075229509802403}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &420426700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420426692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0ffe227485c5497c976bca9d9f2949f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterMat: {fileID: 0}
+  flowDirection: {x: 1, y: 0}
+  flowSpeed: 1
 --- !u!4 &463521365 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1507636620937791777, guid: 7097ba7ba649e1f41bba232312bdcbd8, type: 3}
@@ -5008,7 +5028,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8194433416580196243, guid: 84f2f3897d8c4704eb53c0935585b21d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 463521365}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6294703398953441606, guid: 84f2f3897d8c4704eb53c0935585b21d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 420426700}
   m_SourcePrefab: {fileID: 100100000, guid: 84f2f3897d8c4704eb53c0935585b21d, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
