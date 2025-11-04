@@ -1,45 +1,62 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class MoveForward : MonoBehaviour
 {
     public float speed;
     public float tempSpeed;
     public static MoveForward instance;
-    private GameObject GameManager;
+
+    [Header("References")]
+    public Animator fishAnim; 
 
     private void Start()
     {
-        GameManager = GameObject.Find("GameManager");
         instance = this;
         InvokeRepeating("speedUp", 0, 1);
     }
-    // Update is called once per frame
+
     void Update()
     {
-        if (GameManager.GetComponent<GameManager>().isGameActive)
+        float currentSpeed = speed + tempSpeed;
+        transform.Translate(Vector3.forward * Time.deltaTime * currentSpeed);
+
+        
+        if (tempSpeed > 0)
+            tempSpeed -= 0.05f;
+        if (tempSpeed < 0)
+            tempSpeed = 0;
+
+        
+        if (fishAnim != null)
         {
-            transform.Translate(Vector3.forward * Time.deltaTime * (speed + tempSpeed));
-            if (tempSpeed > 0) { tempSpeed -= 0.05f; }
-            if (tempSpeed < 0) { tempSpeed = 0; }
+            fishAnim.speed = Mathf.Clamp(currentSpeed / 10f, 0.2f, 2f);
+
+            
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+                fishAnim.SetTrigger("Turn_Left");
+            else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+                fishAnim.SetTrigger("Turn_Right");
         }
     }
 
-    public void hitObject() {
+    public void hitObject()
+    {
         speed = -1;
         tempSpeed = 0;
     }
 
-    public void addTempSpeed() {
-        if (tempSpeed < speed*1.5f)
+    public void addTempSpeed()
+    {
+        if (tempSpeed < speed * 1.5f)
         {
-            tempSpeed += speed * 1.5f/(tempSpeed+1);
+            tempSpeed += speed * 1.5f / 10f + 10;
         }
     }
 
-    void speedUp() {
-        speed += 1f;
-        if(speed >= 0){ speed += 0.5f; }
+    void speedUp()
+    {
+        speed += 0.5f;
+        if (speed >= 0)
+            speed += 2;
     }
 }
