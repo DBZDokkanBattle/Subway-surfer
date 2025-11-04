@@ -6,10 +6,10 @@ using System.Collections.Generic;
 public class Timer : MonoBehaviour
 {
     [Header("UI Component")]
-    public TextMeshProUGUI timerText;   // Drag a TMP text here if you want to see the time on screen
+    public TextMeshProUGUI timerText;   
 
     [Header("Timer Settings")]
-    public float currentTime = 0f;      // Starts at 0 seconds
+    public float currentTime = 0f;      
     public bool countDown = false;      // false = count up (stopwatch), true = countdown
     public bool running = true;         // controls if timer is ticking
 
@@ -62,15 +62,15 @@ public class Timer : MonoBehaviour
     {
         if (timerText == null) return;
 
-        if (hasFormat)
-            timerText.text = currentTime.ToString(timeFormats[format]);
-        else
-            timerText.text = currentTime.ToString();
+        // Split currentTime into minutes, seconds, hundredths
+        int minutes = Mathf.FloorToInt(currentTime / 60f);
+        int seconds = Mathf.FloorToInt(currentTime % 60f);
+        int hundredths = Mathf.FloorToInt((currentTime * 100f) % 100f); // 0–99
+
+        // Format: mm:ss.ff
+        timerText.text = $"{minutes:00}:{seconds:00}.{hundredths:00}";
     }
 
-    // ---------- Public helper methods ----------
-
-    // Reset timer to 0 and start again
     public void ResetTimer()
     {
         currentTime = 0f;

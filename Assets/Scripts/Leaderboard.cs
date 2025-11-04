@@ -12,7 +12,7 @@ public class Leaderboard : MonoBehaviour
     [Header("Config")]
     [SerializeField] private string publicLeaderboardKey = "6f2f429158f948114e7dbcd5d279dabddf1d51a2cd225750e88ae125cc8f6bbb";
 
-    // Must match whatever you used to convert time -> score in ScoreSubmitter (100000 / seconds)
+    
     private const float SCORE_SCALE = 100000f;
 
     private void Start()
@@ -20,13 +20,12 @@ public class Leaderboard : MonoBehaviour
         GetLeaderboard();
     }
 
-    /// <summary>
+   
     /// Pulls entries from the online board and fills the UI.
-    /// Stored "score" is inverse time; we convert back to seconds for display.
-    /// </summary>
+    /// Stored "score" is inverse time; to convert back to seconds for display.
     public void GetLeaderboard()
     {
-        // Optional: show loading placeholders
+       
         SetAllRows("-", "...");
 
         LeaderboardCreator.GetLeaderboard(publicLeaderboardKey, (entries) =>
@@ -58,10 +57,9 @@ public class Leaderboard : MonoBehaviour
         });
     }
 
-    /// <summary>
+   
     /// Upload an entry (score should be the inverted time you computed elsewhere),
     /// then refresh the board.
-    /// </summary>
     public void SetLeaderboardEntry(string username, int score)
     {
         LeaderboardCreator.UploadNewEntry(publicLeaderboardKey, SafeName(username), score, (msg) =>
@@ -69,8 +67,6 @@ public class Leaderboard : MonoBehaviour
             GetLeaderboard();
         });
     }
-
-    // ---------- Helpers ----------
 
     private static string SafeName(string raw)
     {

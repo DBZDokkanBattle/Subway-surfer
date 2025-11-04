@@ -6,22 +6,22 @@ public class MaxSpeedTracker : MonoBehaviour
     public enum SpeedUnit { MetersPerSecond, KilometersPerHour, MilesPerHour }
 
     [Header("What to track")]
-    [SerializeField] private Transform target;              // <- drag your Fish here
+    [SerializeField] private Transform target;              
     [SerializeField] private bool warnIfNoTarget = true;
 
     [Header("UI (optional)")]
-    [SerializeField] private TextMeshProUGUI currentSpeedText; // "Current Speed: 6.45 m/s"
-    [SerializeField] private TextMeshProUGUI maxSpeedText;     // "Max Speed: 12.30 m/s"
+    [SerializeField] private TextMeshProUGUI currentSpeedText; 
+    [SerializeField] private TextMeshProUGUI maxSpeedText;     
     [SerializeField] private string currentPrefix = "Current Speed: ";
     [SerializeField] private string maxPrefix = "Max Speed: ";
 
     [Header("Display")]
     [SerializeField] private SpeedUnit unit = SpeedUnit.MetersPerSecond;
-    [SerializeField] private float worldScaleToMeters = 1f; // if 1 unit ≠ 1 meter
+    [SerializeField] private float worldScaleToMeters = 1f; 
     [Range(0f, 0.9f)][SerializeField] private float smoothing = 0.2f;
 
-    public float CurrentSpeed { get; private set; } // in chosen unit
-    public float MaxSpeed { get; private set; }     // in chosen unit
+    public float CurrentSpeed { get; private set; } 
+    public float MaxSpeed { get; private set; }     
 
     Rigidbody rb; Rigidbody2D rb2d;
     Vector3 prevPos; bool hasPrev;
@@ -36,7 +36,7 @@ public class MaxSpeedTracker : MonoBehaviour
             return;
         }
 
-        // 1) compute speed in m/s
+        // compute speed in m/s
         float mps = 0f;
         if (rb != null) mps = rb.linearVelocity.magnitude * worldScaleToMeters;
         else if (rb2d != null) mps = rb2d.linearVelocity.magnitude * worldScaleToMeters;
@@ -48,19 +48,17 @@ public class MaxSpeedTracker : MonoBehaviour
             prevPos = target.position;
         }
 
-        // 2) convert to display unit
+       
         float disp = FromMps(mps);
 
-        // 3) smooth current readout (optional)
         if (smoothing > 0f)
             CurrentSpeed = Mathf.Lerp(CurrentSpeed, disp, 1f - Mathf.Pow(1f - smoothing, Time.deltaTime * 60f));
         else
             CurrentSpeed = disp;
 
-        // 4) track max
         if (CurrentSpeed > MaxSpeed) MaxSpeed = CurrentSpeed;
 
-        // 5) update UI (if assigned)
+       
         if (currentSpeedText) currentSpeedText.text = currentPrefix + Format(disp);
         if (maxSpeedText) maxSpeedText.text = maxPrefix + Format(MaxSpeed);
     }
