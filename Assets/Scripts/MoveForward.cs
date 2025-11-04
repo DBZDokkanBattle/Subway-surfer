@@ -4,13 +4,6 @@ public class MoveForward : MonoBehaviour
 {
     public float speed;
     public float tempSpeed;
-    public float totalSpeed;
-    public float maxTempSpeed;
-
-    public float tempSpeedIncrease;
-    public float tempSpeedDecrease;
-
-    public float normalSpeedIncrease;
     public static MoveForward instance;
 
     [Header("References")]
@@ -24,8 +17,8 @@ public class MoveForward : MonoBehaviour
 
     void Update()
     {
-        totalSpeed = speed + tempSpeed;
-        //transform.Translate(Vector3.forward * Time.deltaTime * currentSpeed);
+        float currentSpeed = speed + tempSpeed;
+        transform.Translate(Vector3.forward * Time.deltaTime * currentSpeed);
 
         
         if (tempSpeed > 0)
@@ -36,7 +29,7 @@ public class MoveForward : MonoBehaviour
         
         if (fishAnim != null)
         {
-            fishAnim.speed = Mathf.Clamp(totalSpeed / 10f, 0.2f, 2f);
+            fishAnim.speed = Mathf.Clamp(currentSpeed / 10f, 0.2f, 2f);
 
             
             if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
@@ -54,12 +47,16 @@ public class MoveForward : MonoBehaviour
 
     public void addTempSpeed()
     {
-        if (tempSpeed < maxTempSpeed) tempSpeed += tempSpeedIncrease;
+        if (tempSpeed < speed * 1.5f)
+        {
+            tempSpeed += speed * 1.5f / 10f + 10;
+        }
     }
 
     void speedUp()
     {
-        if(speed < 0) speed += normalSpeedIncrease;
-        if (speed >= 0) speed += normalSpeedIncrease;
+        speed += 0.5f;
+        if (speed >= 0)
+            speed += 2;
     }
 }
