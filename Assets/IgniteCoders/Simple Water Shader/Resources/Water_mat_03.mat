@@ -83,6 +83,6 @@ Material:
     - Color_36218622185947c6a5ae36366d8e21d8: {r: 0.025854412, g: 0.74936706, b: 0.7830189, a: 0.9607843}
     - Color_93e06cd551a5449091bcde90b46765a0: {r: 0.6462264, g: 1, b: 0.9937935, a: 0.6039216}
     - Vector2_4351ac2be1d74054986ec5378db9d578: {r: 3, g: 2, b: 0, a: 0}
-    - _Speed: {r: 0, g: 0.5, b: 0, a: 0}
+    - _Speed: {r: 0, g: 0.2, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
