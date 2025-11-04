@@ -2312,7 +2312,7 @@
     "m_ObjectId": "2775d216a1844359b57de7921581d74f",
     "m_Title": "Water Reflection",
     "m_Position": {
-        "x": 1538.9998779296875,
+        "x": 1539.0,
         "y": -528.0
     }
 }
@@ -3215,7 +3215,7 @@
     "m_ObjectId": "4f72e8edfd7843ba9e8eed127473be67",
     "m_Title": "Water Normals",
     "m_Position": {
-        "x": -747.9998779296875,
+        "x": -748.0,
         "y": -1060.0
     }
 }
@@ -3226,7 +3226,7 @@
     "m_ObjectId": "5095380f464e433e85d3701acaa49492",
     "m_Title": "Water Color",
     "m_Position": {
-        "x": 2039.9998779296875,
+        "x": 2040.0,
         "y": 285.0
     }
 }
@@ -4498,7 +4498,7 @@
     "m_ObjectId": "743c36f8f4e04cd9814a2b4da7365f39",
     "m_Title": "Water Displacement",
     "m_Position": {
-        "x": -562.4999389648438,
+        "x": -562.5,
         "y": -2032.5
     }
 }
@@ -8257,7 +8257,7 @@
     "m_ObjectId": "ffe60b9b4f7b4cb08ebd77f58bc03c9d",
     "m_Title": "Water Depth",
     "m_Position": {
-        "x": -829.9999389648438,
+        "x": -830.0,
         "y": 204.0
     }
 }
