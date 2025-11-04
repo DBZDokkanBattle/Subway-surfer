@@ -15,7 +15,7 @@ public class GenerateTerrain : MonoBehaviour
         if (GameManager.GetComponent<GameManager>().generatedTerrains < GameManager.GetComponent<GameManager>().maxTerrains)
         {
             GameManager.GetComponent<GameManager>().increaseGeneratedTerrain();
-            Instantiate(street, new Vector3(0, 0, 60) + transform.position, Quaternion.identity);
+            Instantiate(street, new Vector3(0, 0, 20) + transform.position, Quaternion.identity);
         }
         else if(GameManager.GetComponent<GameManager>().generatedTerrains == GameManager.GetComponent<GameManager>().maxTerrains)
         {
