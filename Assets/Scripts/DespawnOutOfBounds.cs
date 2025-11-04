@@ -13,6 +13,9 @@ public class DespawnOutOfBounds : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.z - player.transform.position.z < -20) { Destroy(gameObject); }
+        if (transform.position.z - player.transform.position.z < -60)
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

@@ -6,8 +6,8 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject player;
     private float startTime = 4.0f;
-    private float delayTime = 2.0f;
-    private float coralDelay = 3.5f;
+    public float delayTime = 1.0f;
+    public float coralDelay = 3.5f;
     //private Vector3 spawnPos = new Vector3(0,0,-20);
     public GameObject[] ObstaclePrefabs;
     public GameObject coralPrefab;
@@ -16,7 +16,13 @@ public class SpawnManager : MonoBehaviour
     {
         InvokeRepeating("spawnObstaclePrefabs", startTime, delayTime);
         InvokeRepeating("SpawnCoral", startTime + 1f, coralDelay);
+
     }
+
+    private void OnTriggerEnter(Collider other) 
+    {
+        spawnObstaclePrefabs();
+    } 
 
 
     void spawnObstaclePrefabs()
@@ -27,6 +33,15 @@ public class SpawnManager : MonoBehaviour
         Vector3 spawnPos = new Vector3(lane, 0.5f, 40 + player.transform.position.z);
 
         Instantiate(ObstaclePrefabs[ObstacleIndex], spawnPos , ObstaclePrefabs[ObstacleIndex].transform.rotation);
+
+        if (Random.Range(0, 3) == 2) {
+             lane = Random.Range(-1, 2);
+             ObstacleIndex = Random.Range(0, ObstaclePrefabs.Length);
+             spawnPos = new Vector3(lane, 0.5f, 40 + player.transform.position.z);
+
+            Instantiate(ObstaclePrefabs[ObstacleIndex], spawnPos, ObstaclePrefabs[ObstacleIndex].transform.rotation);
+
+        }
         
     }
     
