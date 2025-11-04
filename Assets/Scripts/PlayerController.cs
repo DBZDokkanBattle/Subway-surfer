@@ -32,14 +32,14 @@ public class PlayerController : MonoBehaviour
 
             transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
 
-            if (transform.position.x > 1)
+            if (transform.position.x > 2.5)
             {
-                transform.position = new Vector3(1, transform.position.y, transform.position.z);
+                transform.position = new Vector3((float)2.5, transform.position.y, transform.position.z);
             }
 
-            if (transform.position.x < -1)
+            if (transform.position.x < -2.5)
             {
-                transform.position = new Vector3(-1, transform.position.y, transform.position.z);
+                transform.position = new Vector3((float)-2.5, transform.position.y, transform.position.z);
             }
         }
     }
