@@ -13,11 +13,15 @@ public class MoveForward : MonoBehaviour
     public float normalSpeedIncrease;
     public static MoveForward instance;
 
+    public ParticleSystem ps;
+   
+
     [Header("References")]
     public Animator fishAnim; 
 
     private void Start()
     {
+        //ps = GetComponent<ParticleSystem>();
         instance = this;
         InvokeRepeating("speedUp", 0, 1);
     }
@@ -26,8 +30,12 @@ public class MoveForward : MonoBehaviour
     {
         totalSpeed = speed + tempSpeed;
         //transform.Translate(Vector3.forward * Time.deltaTime * currentSpeed);
-
+        var main = ps.main;
+        var emissions = ps.emission;
         
+        main.startSpeed = tempSpeed;
+        emissions.rateOverTime = tempSpeed*100;
+
         if (tempSpeed > 0)
             tempSpeed -= 0.05f;
         if (tempSpeed < 0)
