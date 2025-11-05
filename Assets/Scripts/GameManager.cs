@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public int maxTerrains = 5;
+    public int maxTerrains = 30;
     public int generatedTerrains;
     public bool isGameActive = true;
     public bool canSpawn = true; 
