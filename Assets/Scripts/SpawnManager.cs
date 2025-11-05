@@ -6,7 +6,8 @@ public class SpawnManager : MonoBehaviour
     private float startTime = 2.0f;
     public float delayTime = 1.0f;
     public float coralDelay = 3.5f;
-    public float decorationDelay = 0.1f; 
+    public float decorationDelay = 0.1f;
+    public int range;
 
     public GameObject[] ObstaclePrefabs;
     public GameObject coralPrefab;
@@ -26,7 +27,7 @@ public class SpawnManager : MonoBehaviour
     {
         if (gm == null || !gm.canSpawn) return;
 
-        int lane = Random.Range(-1, 2);
+        int lane = Random.Range(-range, range+1);
         int index = Random.Range(0, ObstaclePrefabs.Length);
         Vector3 spawnPos = new Vector3(lane, 0.5f, 40 + player.transform.position.z);
 
@@ -35,7 +36,7 @@ public class SpawnManager : MonoBehaviour
         // occasional second obstacle
         if (Random.Range(0, 3) == 2)
         {
-            lane = Random.Range(-1, 2);
+            lane = Random.Range(-range, range + 1);
             index = Random.Range(0, ObstaclePrefabs.Length);
             spawnPos = new Vector3(lane, 0.5f, 40 + player.transform.position.z);
             Instantiate(ObstaclePrefabs[index], spawnPos, ObstaclePrefabs[index].transform.rotation);
@@ -48,7 +49,7 @@ public class SpawnManager : MonoBehaviour
 
         if (Random.value < 0.6f)
         {
-            int lane = Random.Range(-1, 2);
+            int lane = Random.Range(-range, range + 1);
             float randomOffsetZ = Random.Range(35f, 50f);
             float randomY = Random.Range(0.3f, 0.8f);
 

@@ -234,8 +234,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   street: {fileID: 6294703398953441606}
-  finish: {fileID: 1472401070491973563, guid: df4d2634f25d2594bbceb5601249c78f, type: 3}
   terrain: {fileID: 6004831475689124556, guid: 9fa8a2b91d3522d4e93fc45633d247d3, type: 3}
+  caveStart: {fileID: 0}
+  caveTerrain: {fileID: 0}
+  endingTerrain: {fileID: 0}
   GameManager: {fileID: 0}
 --- !u!114 &5482317532951772874
 MonoBehaviour:
