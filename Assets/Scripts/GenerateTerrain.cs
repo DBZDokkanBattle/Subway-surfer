@@ -5,8 +5,8 @@ public class GenerateTerrain : MonoBehaviour
     [Header("Terrain Prefabs")]
     public GameObject street;
     public GameObject terrain;
-    public GameObject caveStart;     // The first cave piece (entrance)
-    public GameObject caveTerrain;   // The repeating cave pieces
+    public GameObject caveStart;     
+    public GameObject caveTerrain;   
     public GameObject endingTerrain;
 
     [Header("References")]
@@ -27,27 +27,22 @@ public class GenerateTerrain : MonoBehaviour
 
         if (count <= 5)
         {
-            // 🟩 Phase 1: normal terrain
             SpawnNormalTerrain();
         }
         else if (count == 6)
         {
-            // 🟫 Phase 2 start: cave entrance
             SpawnCaveStart();
         }
         else if (count > 6 && count <= 10)
         {
-            // ⚫ Phase 2 continuation: cave terrain
             SpawnCaveTerrain();
         }
         else if (count > 10 && count < gm.maxTerrains)
         {
-            // 🟩 Phase 3: normal terrain again
             SpawnNormalTerrain();
         }
         else if (count == gm.maxTerrains)
         {
-            // 🏁 End
             SpawnEndingTerrain();
             gm.canSpawn = false;
         }

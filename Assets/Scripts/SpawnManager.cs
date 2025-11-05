@@ -6,9 +6,11 @@ public class SpawnManager : MonoBehaviour
     private float startTime = 2.0f;
     public float delayTime = 1.0f;
     public float coralDelay = 3.5f;
+    public float decorationDelay = 0.1f; 
 
     public GameObject[] ObstaclePrefabs;
     public GameObject coralPrefab;
+
 
     private GameManager gm;
 
@@ -22,27 +24,26 @@ public class SpawnManager : MonoBehaviour
 
     void spawnObstaclePrefabs()
     {
-        
         if (gm == null || !gm.canSpawn) return;
 
         int lane = Random.Range(-1, 2);
-        int ObstacleIndex = Random.Range(0, ObstaclePrefabs.Length);
+        int index = Random.Range(0, ObstaclePrefabs.Length);
         Vector3 spawnPos = new Vector3(lane, 0.5f, 40 + player.transform.position.z);
 
-        Instantiate(ObstaclePrefabs[ObstacleIndex], spawnPos, ObstaclePrefabs[ObstacleIndex].transform.rotation);
+        Instantiate(ObstaclePrefabs[index], spawnPos, ObstaclePrefabs[index].transform.rotation);
 
+        // occasional second obstacle
         if (Random.Range(0, 3) == 2)
         {
             lane = Random.Range(-1, 2);
-            ObstacleIndex = Random.Range(0, ObstaclePrefabs.Length);
+            index = Random.Range(0, ObstaclePrefabs.Length);
             spawnPos = new Vector3(lane, 0.5f, 40 + player.transform.position.z);
-            Instantiate(ObstaclePrefabs[ObstacleIndex], spawnPos, ObstaclePrefabs[ObstacleIndex].transform.rotation);
+            Instantiate(ObstaclePrefabs[index], spawnPos, ObstaclePrefabs[index].transform.rotation);
         }
     }
 
     void SpawnCoral()
     {
-        
         if (gm == null || !gm.canSpawn) return;
 
         if (Random.value < 0.6f)
@@ -55,4 +56,9 @@ public class SpawnManager : MonoBehaviour
             Instantiate(coralPrefab, spawnPos, Quaternion.identity);
         }
     }
+
+  
+    
+    
+
 }
