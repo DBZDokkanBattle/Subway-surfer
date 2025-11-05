@@ -2721,7 +2721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30907fde3db4b674c99478f6c75a34e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTerrains: 2
+  maxTerrains: 15
   generatedTerrains: 0
   isGameActive: 1
   canSpawn: 1
@@ -5448,9 +5448,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7804709697437706483, guid: 84f2f3897d8c4704eb53c0935585b21d, type: 3}
+      propertyPath: caveStart
+      value: 
+      objectReference: {fileID: 7328353192851251263, guid: fdde666cf44d1480ab972678f972da23, type: 3}
+    - target: {fileID: 7804709697437706483, guid: 84f2f3897d8c4704eb53c0935585b21d, type: 3}
       propertyPath: GameManager
       value: 
       objectReference: {fileID: 986380867}
+    - target: {fileID: 7804709697437706483, guid: 84f2f3897d8c4704eb53c0935585b21d, type: 3}
+      propertyPath: caveTerrain
+      value: 
+      objectReference: {fileID: 4481111015163500108, guid: a5c20971575c740bcab5c767656868b6, type: 3}
     - target: {fileID: 7804709697437706483, guid: 84f2f3897d8c4704eb53c0935585b21d, type: 3}
       propertyPath: endingTerrain
       value: 
