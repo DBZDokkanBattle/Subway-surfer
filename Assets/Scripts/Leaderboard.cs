@@ -5,52 +5,57 @@ using Dan.Main;
 
 public class Leaderboard : MonoBehaviour
 {
-    [Header("UI Slots (top N rows)")]
+    [Header("Dan Leaderboard")]
+    [SerializeField]
+    private string publicLeaderboardKey =
+        "6f2f429158f948114e7dbcd5d279dabddf1d51a2cd225750e88ae125cc8f6bbb";
+
+    [Header("UI (Top N rows)")]
+    [Tooltip("Parallel lists: element i in names matches element i in scores")]
     [SerializeField] private List<TextMeshProUGUI> names;
-    [SerializeField] private List<TextMeshProUGUI> scores;   // shows time as mm:ss.ff
+    [SerializeField] private List<TextMeshProUGUI> scores; // displays mm:ss.ff
 
-    [Header("Config")]
-    [SerializeField] private string publicLeaderboardKey = "6f2f429158f948114e7dbcd5d279dabddf1d51a2cd225750e88ae125cc8f6bbb";
-
-    // Must match whatever you used to convert time -> score in ScoreSubmitter (100000 / seconds)
+    // MUST match your ScoreSubmitter conversion: score = 100000 / seconds
     private const float SCORE_SCALE = 100000f;
 
     private void Start()
     {
-        GetLeaderboard();
+        Refresh();
     }
 
-    /// <summary>
-    /// Pulls entries from the online board and fills the UI.
-    /// Stored "score" is inverse time; we convert back to seconds for display.
-    /// </summary>
-    public void GetLeaderboard()
+    /// <summary>Fetch entries and fill UI (converts score -> time text).</summary>
+    public void Refresh()
     {
-        // Optional: show loading placeholders
         SetAllRows("-", "...");
+        Debug.Log("[LB] Refreshing leaderboard… key=" + publicLeaderboardKey);
 
-        LeaderboardCreator.GetLeaderboard(publicLeaderboardKey, (entries) =>
+        LeaderboardCreator.GetLeaderboard(publicLeaderboardKey, entries =>
         {
             if (entries == null || entries.Length == 0)
             {
+                Debug.LogWarning("[LB] No entries returned.");
                 SetAllRows("-", "-");
                 return;
             }
 
-            int loopLength = Mathf.Min(entries.Length, names.Count);
+            int rowSlots = Mathf.Min(names.Count, scores.Count);
+            int count = Mathf.Min(entries.Length, rowSlots);
+            Debug.Log($"[LB] Received {entries.Length} entries (showing {count}).");
 
-            for (int i = 0; i < loopLength; ++i)
+            for (int i = 0; i < count; i++)
             {
                 var e = entries[i];
-                names[i].text = SafeName(e.Username);
-
-                // Convert stored score -> seconds
+                string user = SafeName(e.Username);
                 float seconds = ScoreToSeconds(e.Score);
+
+                names[i].text = user;
                 scores[i].text = FormatAsClock(seconds);
+
+                Debug.Log($"[LB] {i + 1}. {user} | rawScore={e.Score} -> {seconds:0.00}s");
             }
 
-            // Clear remaining empty rows (if any)
-            for (int i = loopLength; i < names.Count; i++)
+            // clear leftover UI rows
+            for (int i = count; i < rowSlots; i++)
             {
                 names[i].text = "-";
                 scores[i].text = "-";
@@ -59,44 +64,80 @@ public class Leaderboard : MonoBehaviour
     }
 
     /// <summary>
-    /// Upload an entry (score should be the inverted time you computed elsewhere),
-    /// then refresh the board.
+    /// Legacy signature your UI is wired to.
+    /// Calls Submit(...) so every call creates a NEW online entry.
     /// </summary>
     public void SetLeaderboardEntry(string username, int score)
     {
-        LeaderboardCreator.UploadNewEntry(publicLeaderboardKey, SafeName(username), score, (msg) =>
+        Submit(username, score);
+    }
+
+    /// <summary>
+    /// ALWAYS creates a new online entry (even on same PC).
+    /// Wipes all PlayerPrefs to guarantee Dan's local member token is removed,
+    /// uploads, then refreshes (with a small delay for propagation).
+    /// </summary>
+    public void Submit(string username, int score)
+    {
+        string clean = SafeName(username);
+        Debug.Log($"[LB] SUBMIT as NEW member: '{clean}' score={score}");
+
+        // 🔍 Diagnostics BEFORE wipe
+        Debug.Log("[LB] Before wipe: has MemberID=" + PlayerPrefs.HasKey("Dan_Leaderboard_MemberID"));
+        Debug.Log("[LB] Before wipe: has PublicKey=" + PlayerPrefs.HasKey("Dan_Leaderboard_MemberPublicKey"));
+        Debug.Log("[LB] Using leaderboard key: " + publicLeaderboardKey);
+
+        // 1) Nuclear wipe to guarantee new identity
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+        Debug.Log("[LB] PlayerPrefs.DeleteAll() -> local identity wiped.");
+
+        // 🔍 Diagnostics AFTER wipe
+        Debug.Log("[LB] After wipe: has MemberID=" + PlayerPrefs.HasKey("Dan_Leaderboard_MemberID"));
+        Debug.Log("[LB] After wipe: has PublicKey=" + PlayerPrefs.HasKey("Dan_Leaderboard_MemberPublicKey"));
+
+        // 2) Upload new entry
+        LeaderboardCreator.UploadNewEntry(publicLeaderboardKey, clean, score, msg =>
         {
-            GetLeaderboard();
+            Debug.Log("[LB] Upload result: " + msg);
+            // 3) Small delay helps if backend propagation is a hair slow
+            StartCoroutine(RefreshAfterDelay(0.5f));
         });
     }
 
-    // ---------- Helpers ----------
+    // ---------- helpers ----------
+
+    private System.Collections.IEnumerator RefreshAfterDelay(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        Refresh();
+    }
 
     private static string SafeName(string raw)
     {
         if (string.IsNullOrWhiteSpace(raw)) return "Player";
-        return raw.Trim();
+        raw = raw.Trim();
+        if (raw.Length > 20) raw = raw.Substring(0, 20);
+        return raw;
     }
 
     private float ScoreToSeconds(int score)
     {
-        // Avoid division by zero in case a 0 slips in
-        int safeScore = Mathf.Max(1, score);
-        return SCORE_SCALE / safeScore;
+        int safe = Mathf.Max(1, score);
+        return SCORE_SCALE / safe;
     }
 
-    // mm:ss.ff (hundredths)
     private string FormatAsClock(float seconds)
     {
-        int minutes = Mathf.FloorToInt(seconds / 60f);
-        float sec = seconds % 60f;
-        return $"{minutes:00}:{sec:00.00}";
+        int m = Mathf.FloorToInt(seconds / 60f);
+        float s = seconds % 60f;
+        return $"{m:00}:{s:00.00}";
     }
 
     private void SetAllRows(string nameText, string scoreText)
     {
-        int count = Mathf.Min(names.Count, scores.Count);
-        for (int i = 0; i < count; i++)
+        int n = Mathf.Min(names.Count, scores.Count);
+        for (int i = 0; i < n; i++)
         {
             names[i].text = nameText;
             scores[i].text = scoreText;
