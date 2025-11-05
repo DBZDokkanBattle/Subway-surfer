@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b0f5366-cd90-42d9-9b28-d7bed7471eca" name="Changes" comment="" />
+    <list default="true" id="0b0f5366-cd90-42d9-9b28-d7bed7471eca" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Subway-surfer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Subway-surfer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/IgniteCoders/Simple Water Shader/Resources/Water_mat_02.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/IgniteCoders/Simple Water Shader/Resources/Water_mat_02.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/IgniteCoders/Simple Water Shader/Resources/Water_mat_03.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/IgniteCoders/Simple Water Shader/Resources/Water_mat_03.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/skybox.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/skybox.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GenerateTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GenerateTerrain.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Skybox.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Skybox.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,7 +55,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "skybox",
+    "git-widget-placeholder": "i-love-fish",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",

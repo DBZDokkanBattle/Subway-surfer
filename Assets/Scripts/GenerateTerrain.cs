@@ -3,9 +3,10 @@ using UnityEngine;
 public class GenerateTerrain : MonoBehaviour
 {
     public GameObject street;
-    public GameObject finish;
     public GameObject terrain;
+    public GameObject endingTerrain; 
     public GameObject GameManager;
+
     private void Start()
     {
         GameManager = GameObject.Find("GameManager");
@@ -13,16 +14,20 @@ public class GenerateTerrain : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (GameManager.GetComponent<GameManager>().generatedTerrains < GameManager.GetComponent<GameManager>().maxTerrains)
+        var gm = GameManager.GetComponent<GameManager>();
+
+        if (gm.generatedTerrains < gm.maxTerrains)
         {
-            GameManager.GetComponent<GameManager>().increaseGeneratedTerrain();
+            gm.increaseGeneratedTerrain();
             Instantiate(street, new Vector3(0, 0, 60) + transform.position, Quaternion.identity);
             Instantiate(terrain, new Vector3(0, 0, 80) + transform.position, Quaternion.identity);
         }
-        else if(GameManager.GetComponent<GameManager>().generatedTerrains == GameManager.GetComponent<GameManager>().maxTerrains)
+        else if (gm.generatedTerrains == gm.maxTerrains)
         {
-            GameManager.GetComponent<GameManager>().increaseGeneratedTerrain();
-            Instantiate(finish, new Vector3(0, 0, 20) + transform.position, transform.rotation); 
+            
+            gm.increaseGeneratedTerrain();
+            Instantiate(endingTerrain, transform.position + new Vector3(0, -5f, 80), transform.rotation);
+
         }
     }
 }

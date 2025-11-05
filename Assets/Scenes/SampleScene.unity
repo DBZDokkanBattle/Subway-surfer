@@ -1038,6 +1038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 1
+  startRotation: 75
 --- !u!1 &349839611
 GameObject:
   m_ObjectHideFlags: 0
@@ -2710,7 +2711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30907fde3db4b674c99478f6c75a34e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxTerrains: 60
+  maxTerrains: 2
   generatedTerrains: 0
   isGameActive: 1
 --- !u!1 &1031126928
@@ -4058,7 +4059,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0cbfbbe848c964e80b41afb1315046b7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.15
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0cbfbbe848c964e80b41afb1315046b7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4898,6 +4899,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7804709697437706483, guid: 84f2f3897d8c4704eb53c0935585b21d, type: 3}
+      propertyPath: GameManager
+      value: 
+      objectReference: {fileID: 986380867}
+    - target: {fileID: 7804709697437706483, guid: 84f2f3897d8c4704eb53c0935585b21d, type: 3}
+      propertyPath: endingTerrain
+      value: 
+      objectReference: {fileID: 3816055189354003591, guid: 12452ffdc96d34b7e977188f73aceffb, type: 3}
     - target: {fileID: 8194433416580196243, guid: 84f2f3897d8c4704eb53c0935585b21d, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.6660356
