@@ -6,18 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0b0f5366-cd90-42d9-9b28-d7bed7471eca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Subway-surfer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Subway-surfer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/skybox.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/skybox.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Decorations/BasicTree.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Decorations/BasicTree.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Decorations/Mushroom.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Decorations/Mushroom.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Decorations/MushroomThic.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Decorations/MushroomThic.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Decorations/PineTree.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Decorations/PineTree.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Decorations/Rock.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Decorations/Rock.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Decorations/TreeStump.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Decorations/TreeStump.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Decorations/Well.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Decorations/Well.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GenerateTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GenerateTerrain.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SpawnManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SpawnManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +48,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "decorations-on-the-banks",
+    "git-widget-placeholder": "make-objects-appear-even-better-",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
