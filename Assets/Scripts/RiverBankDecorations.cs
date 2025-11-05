@@ -8,7 +8,7 @@ public class RiverbankDecorationSpawner : MonoBehaviour
     public int decorationsPerBank = 2;           // number of decorations per bank each interval
     public float bankY = 1.8f;                   // fixed Y height for decorations
     public float bankXOffset = 8f;               // distance from center to bank
-    public float zStartOffset = 100f;             // starting distance in front of player
+    public float zStartOffset = 70f;             // starting distance in front of player
     public float zSpacing = 5f;                  // spacing between decorations
     public bool canSpawn = true;                 // controlled by GameManager
 

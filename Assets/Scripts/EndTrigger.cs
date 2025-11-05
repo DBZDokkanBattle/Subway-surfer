@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 public class EndTrigger : MonoBehaviour
 {
     
-    [SerializeField] private string endingSceneName = "EndingScene"; 
 
     private bool hasTriggered = false;
 
@@ -15,7 +14,7 @@ public class EndTrigger : MonoBehaviour
         if (other.CompareTag("Player")) 
         {
             hasTriggered = true;
-            SceneManager.LoadScene(endingSceneName);
+            SceneManager.LoadScene("EndingScene");
         }
     }
 
