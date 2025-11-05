@@ -14,7 +14,7 @@ public class RiverbankDecorationSpawner : MonoBehaviour
 
     void Start()
     {
-        InvokeRepeating(nameof(SpawnDecorations), 0.5f, spawnInterval);
+        InvokeRepeating(nameof(SpawnDecorations), 2f, spawnInterval);
     }
 
     void SpawnDecorations()
