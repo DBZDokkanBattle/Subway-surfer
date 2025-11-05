@@ -25,22 +25,22 @@ public class GenerateTerrain : MonoBehaviour
 
         int count = gm.generatedTerrains;
 
-        if (count <= 10)
+        if (count <= 5)
         {
             // 🟩 Phase 1: normal terrain
             SpawnNormalTerrain();
         }
-        else if (count == 11)
+        else if (count == 6)
         {
             // 🟫 Phase 2 start: cave entrance
             SpawnCaveStart();
         }
-        else if (count > 11 && count <= 20)
+        else if (count > 6 && count <= 10)
         {
             // ⚫ Phase 2 continuation: cave terrain
             SpawnCaveTerrain();
         }
-        else if (count > 20 && count < gm.maxTerrains)
+        else if (count > 10 && count < gm.maxTerrains)
         {
             // 🟩 Phase 3: normal terrain again
             SpawnNormalTerrain();
