@@ -26,7 +26,8 @@ public class GenerateTerrain : MonoBehaviour
         {
             
             gm.increaseGeneratedTerrain();
-            Instantiate(endingTerrain, transform.position + new Vector3(0, -5f, 80), transform.rotation);
+            Instantiate(endingTerrain, transform.position + new Vector3(0, 0, 30), Quaternion.identity);
+            gm.canSpawn = false;
 
         }
     }

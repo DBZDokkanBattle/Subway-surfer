@@ -2,35 +2,65 @@ using UnityEngine;
 
 public class Collision : MonoBehaviour
 {
-    [SerializeField] private ParticleSystem headSpinningVFX;
+    [Header("Particles")]
+    [SerializeField] private ParticleSystem swimmingVFX;     // plays while swimming
+    [SerializeField] private ParticleSystem headSpinningVFX; // plays on collision
+
+    [Header("Animation")]
     [SerializeField] private Animator fishAnim;
 
     private void Awake()
     {
-        headSpinningVFX = gameObject.GetComponentInChildren<ParticleSystem>();
-        fishAnim = GetComponentInChildren<Animator>();
+        // Auto-assigns if not manually set
+        if (fishAnim == null)
+            fishAnim = GetComponentInChildren<Animator>();
+    }
+
+    private void Start()
+    {
+        // start swimming particles
+        if (swimmingVFX != null)
+            swimmingVFX.Play();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Collision")) return;
 
-        headSpinningVFX.Play();
+        // stop swimming particles completely
+        if (swimmingVFX != null)
+            swimmingVFX.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
+        // play head spinning particles
+        if (headSpinningVFX != null)
+        {
+            headSpinningVFX.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            headSpinningVFX.Play();
+
+            
+            Invoke(nameof(ResumeSwimming), 2f);
+        }
+
+        
         if (fishAnim != null)
         {
             fishAnim.SetTrigger("Hitting_Obstacle");
-            Invoke(nameof(ResetHitAnimation), 0.8f); // adjust timing
+            Invoke(nameof(ResetHitAnimation), 0.8f);
         }
 
         MoveForward.instance.hitObject();
         Destroy(other.gameObject);
     }
 
-    void ResetHitAnimation()
+    private void ResetHitAnimation()
     {
         if (fishAnim != null)
             fishAnim.ResetTrigger("Hitting_Obstacle");
     }
 
+    private void ResumeSwimming()
+    {
+        if (swimmingVFX != null)
+            swimmingVFX.Play();
+    }
 }
