@@ -6,11 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0b0f5366-cd90-42d9-9b28-d7bed7471eca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Subway-surfer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Subway-surfer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Materials/skybox.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/skybox.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/end.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/end.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GenerateTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GenerateTerrain.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
