@@ -72,6 +72,7 @@ public class Leaderboard : MonoBehaviour
         Debug.Log($"[LB] SUBMIT as NEW member: '{clean}' score={score}");
 
         // diagnostics before clearing
+        // IT kept crashing and not working hence the insane diagnostics T-T
         Debug.Log("[LB] Before wipe: has MemberID=" + PlayerPrefs.HasKey("Dan_Leaderboard_MemberID"));
         Debug.Log("[LB] Before wipe: has PublicKey=" + PlayerPrefs.HasKey("Dan_Leaderboard_MemberPublicKey"));
         Debug.Log("[LB] Using leaderboard key: " + publicLeaderboardKey);
