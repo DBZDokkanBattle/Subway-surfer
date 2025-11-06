@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0b0f5366-cd90-42d9-9b28-d7bed7471eca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Subway-surfer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Subway-surfer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GenerateTerrain.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GenerateTerrain.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/end.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/end.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EndTrigger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EndTrigger.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +50,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "himeno",
+    "git-widget-placeholder": "ending-scene-fix",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
