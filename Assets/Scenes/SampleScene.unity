@@ -476,6 +476,63 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!1001 &570372708
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1773291205763831118, guid: f254976b8a91e46a5b745863b6abb4f6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14.822938
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773291205763831118, guid: f254976b8a91e46a5b745863b6abb4f6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773291205763831118, guid: f254976b8a91e46a5b745863b6abb4f6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.5409203
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773291205763831118, guid: f254976b8a91e46a5b745863b6abb4f6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773291205763831118, guid: f254976b8a91e46a5b745863b6abb4f6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773291205763831118, guid: f254976b8a91e46a5b745863b6abb4f6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773291205763831118, guid: f254976b8a91e46a5b745863b6abb4f6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773291205763831118, guid: f254976b8a91e46a5b745863b6abb4f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773291205763831118, guid: f254976b8a91e46a5b745863b6abb4f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1773291205763831118, guid: f254976b8a91e46a5b745863b6abb4f6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6454294660091685144, guid: f254976b8a91e46a5b745863b6abb4f6, type: 3}
+      propertyPath: m_Name
+      value: Mushroom
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f254976b8a91e46a5b745863b6abb4f6, type: 3}
 --- !u!1 &831871425
 GameObject:
   m_ObjectHideFlags: 0
@@ -2611,3 +2668,4 @@ SceneRoots:
   - {fileID: 2879162022648675131}
   - {fileID: 3831725755852299585}
   - {fileID: 4497919584589478969}
+  - {fileID: 570372708}
