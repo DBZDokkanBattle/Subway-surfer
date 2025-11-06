@@ -15,7 +15,6 @@ public class Leaderboard : MonoBehaviour
     [SerializeField] private List<TextMeshProUGUI> names;
     [SerializeField] private List<TextMeshProUGUI> scores; // displays mm:ss.ff
 
-    // MUST match your ScoreSubmitter conversion: score = 100000 / seconds
     private const float SCORE_SCALE = 100000f;
 
     private void Start()
@@ -23,7 +22,6 @@ public class Leaderboard : MonoBehaviour
         Refresh();
     }
 
-    /// <summary>Fetch entries and fill UI (converts score -> time text).</summary>
     public void Refresh()
     {
         SetAllRows("-", "...");
@@ -54,7 +52,7 @@ public class Leaderboard : MonoBehaviour
                 Debug.Log($"[LB] {i + 1}. {user} | rawScore={e.Score} -> {seconds:0.00}s");
             }
 
-            // clear leftover UI rows
+            // clear unused rows
             for (int i = count; i < rowSlots; i++)
             {
                 names[i].text = "-";
@@ -63,49 +61,38 @@ public class Leaderboard : MonoBehaviour
         });
     }
 
-    /// <summary>
-    /// Legacy signature your UI is wired to.
-    /// Calls Submit(...) so every call creates a NEW online entry.
-    /// </summary>
     public void SetLeaderboardEntry(string username, int score)
     {
         Submit(username, score);
     }
 
-    /// <summary>
-    /// ALWAYS creates a new online entry (even on same PC).
-    /// Wipes all PlayerPrefs to guarantee Dan's local member token is removed,
-    /// uploads, then refreshes (with a small delay for propagation).
-    /// </summary>
     public void Submit(string username, int score)
     {
         string clean = SafeName(username);
         Debug.Log($"[LB] SUBMIT as NEW member: '{clean}' score={score}");
 
-        // 🔍 Diagnostics BEFORE wipe
+        // diagnostics before clearing
+        // IT kept crashing and not working hence the insane diagnostics T-T
         Debug.Log("[LB] Before wipe: has MemberID=" + PlayerPrefs.HasKey("Dan_Leaderboard_MemberID"));
         Debug.Log("[LB] Before wipe: has PublicKey=" + PlayerPrefs.HasKey("Dan_Leaderboard_MemberPublicKey"));
         Debug.Log("[LB] Using leaderboard key: " + publicLeaderboardKey);
 
-        // 1) Nuclear wipe to guarantee new identity
+        // clear local identity
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
         Debug.Log("[LB] PlayerPrefs.DeleteAll() -> local identity wiped.");
 
-        // 🔍 Diagnostics AFTER wipe
+        // diagnostics after clearing
         Debug.Log("[LB] After wipe: has MemberID=" + PlayerPrefs.HasKey("Dan_Leaderboard_MemberID"));
         Debug.Log("[LB] After wipe: has PublicKey=" + PlayerPrefs.HasKey("Dan_Leaderboard_MemberPublicKey"));
 
-        // 2) Upload new entry
+        // upload new entry
         LeaderboardCreator.UploadNewEntry(publicLeaderboardKey, clean, score, msg =>
         {
             Debug.Log("[LB] Upload result: " + msg);
-            // 3) Small delay helps if backend propagation is a hair slow
-            StartCoroutine(RefreshAfterDelay(0.5f));
+            StartCoroutine(RefreshAfterDelay(0.5f)); // small delay before refresh
         });
     }
-
-    // ---------- helpers ----------
 
     private System.Collections.IEnumerator RefreshAfterDelay(float seconds)
     {

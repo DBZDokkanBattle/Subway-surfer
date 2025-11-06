@@ -1,47 +1,53 @@
 ﻿using UnityEngine;
 using TMPro;
-using UnityEngine.Events;
 
 public class ScoreSubmitter : MonoBehaviour
 {
-    [Header("UI (optional display)")]
-    [SerializeField] private TextMeshProUGUI inputScore;   // optional: we WRITE the formatted time here
-    [SerializeField] private TMP_InputField inputName;
-
-    [Header("Refs")]
-    [SerializeField] private Timer timer;                  // will be auto-filled in Awake
-
-    public UnityEvent<string, int> submitScoreEvent;
+    [Header("UI References")]
+    [SerializeField] private TMP_InputField inputName;     
+    [SerializeField] private TextMeshProUGUI inputScore;   
+    [SerializeField] private Leaderboard leaderboard;       
 
     private const float SCORE_SCALE = 100000f;
+    private float finalTime;
 
-    private void Awake()
+    private void Start()
     {
-        if (timer == null) timer = GetComponentInParent<Timer>(true); // <-- Canvas-friendly auto-find
+        // get final time from GameData
+        finalTime = (GameData.Instance != null) ? GameData.Instance.finalTime : 0f;
+        Debug.Log($"[ScoreSubmitter] Loaded time = {finalTime:0.00}s");
+
+        // show it on screen
+        if (inputScore != null)
+        {
+            int m = Mathf.FloorToInt(finalTime / 60f);
+            float s = finalTime % 60f;
+            inputScore.text = $"{m:00}:{s:00.00}";
+        }
     }
 
+    // called by the Submit button
     public void SubmitScore()
     {
-        if (timer == null)
+        if (leaderboard == null)
         {
-            Debug.LogWarning("ScoreSubmitter: Timer reference not set (no Timer on this Canvas?).");
+            Debug.LogWarning("[ScoreSubmitter] Leaderboard reference missing.");
             return;
         }
 
-        float seconds = Mathf.Max(0.01f, timer.GetSeconds());    // avoid /0
-        int convertedScore = Mathf.RoundToInt(SCORE_SCALE / seconds);
+        if (finalTime <= 0f)
+        {
+            Debug.LogWarning("[ScoreSubmitter] No valid time to submit!");
+            return;
+        }
 
-        if (inputScore != null) inputScore.text = FormatAsClock(seconds);
+        string name = string.IsNullOrWhiteSpace(inputName?.text) ? "Player" : inputName.text.Trim();
+        PlayerPrefs.SetString("PlayerName", name); // remember for next time
 
-        string nameToUse = string.IsNullOrWhiteSpace(inputName?.text) ? "Player" : inputName.text.Trim();
-        submitScoreEvent?.Invoke(nameToUse, convertedScore);
-    }
+        // convert time -> score
+        int score = Mathf.RoundToInt(SCORE_SCALE / Mathf.Max(0.01f, finalTime));
 
-    // mm:ss.ff
-    private string FormatAsClock(float s)
-    {
-        int m = Mathf.FloorToInt(s / 60f);
-        float sec = s % 60f;
-        return $"{m:00}:{sec:00.00}";
+        Debug.Log($"[ScoreSubmitter] Submitting {name} → {finalTime:0.00}s → score {score}");
+        leaderboard.SetLeaderboardEntry(name, score);
     }
 }

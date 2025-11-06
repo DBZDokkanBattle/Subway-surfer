@@ -1,96 +1,43 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
-using UnityEngine.Events;
-using System.Collections.Generic;
 
 public class Timer : MonoBehaviour
 {
-    [Header("UI Component")]
-    public TextMeshProUGUI timerText;   // Drag a TMP text here if you want to see the time on screen
+    [SerializeField] private TextMeshProUGUI timerText;
+    private float elapsedTime;
+    private bool isRunning = true;
 
-    [Header("Timer Settings")]
-    public float currentTime = 0f;      // Starts at 0 seconds
-    public bool countDown = false;      // false = count up (stopwatch), true = countdown
-    public bool running = true;         // controls if timer is ticking
-
-    [Header("Format Settings")]
-    public bool hasFormat = true;
-    public TimerFormats format = TimerFormats.HundredthDecimal;
-
-    [Header("Events")]
-    public UnityEvent onTimerEnded;     // you can hook this up to call things when time runs out (optional)
-
-    private Dictionary<TimerFormats, string> timeFormats = new Dictionary<TimerFormats, string>();
-    private bool endedInvoked;
-
-    private void Awake()
+    void Update()
     {
-        // Define number formats
-        timeFormats = new Dictionary<TimerFormats, string>
-        {
-            { TimerFormats.Whole, "0" },
-            { TimerFormats.TenthDecimal, "0.0" },
-            { TimerFormats.HundredthDecimal, "0.00" }
-        };
+        if (!isRunning) return;
+
+        elapsedTime += Time.deltaTime;
+
+        if (timerText != null)
+            timerText.text = FormatTime(elapsedTime);
     }
 
-    private void Update()
+    public void StopTimer()
     {
-        if (!running) return;
+        isRunning = false;
 
-        // Increase or decrease time
-        currentTime += countDown ? -Time.deltaTime : Time.deltaTime;
-
-        // Stop if counting down and reached 0
-        if (countDown && currentTime <= 0f)
+        if (GameData.Instance != null)
         {
-            currentTime = 0f;
-            running = false;
-
-            if (!endedInvoked)
-            {
-                endedInvoked = true;
-                onTimerEnded?.Invoke(); // calls anything hooked in the Inspector
-            }
+            GameData.Instance.finalTime = elapsedTime;
+            Debug.Log($"[Timer] Saved time to GameData: {elapsedTime:0.00}s");
         }
-
-        // Update on-screen text
-        SetTimerText();
-    }
-
-    private void SetTimerText()
-    {
-        if (timerText == null) return;
-
-        if (hasFormat)
-            timerText.text = currentTime.ToString(timeFormats[format]);
         else
-            timerText.text = currentTime.ToString();
+        {
+            Debug.LogWarning("[Timer] GameData not found!");
+        }
     }
 
-    // ---------- Public helper methods ----------
+    public float GetSeconds() => elapsedTime;
 
-    // Reset timer to 0 and start again
-    public void ResetTimer()
+    private string FormatTime(float time)
     {
-        currentTime = 0f;
-        running = true;
-        endedInvoked = false;
+        int minutes = Mathf.FloorToInt(time / 60f);
+        float seconds = time % 60f;
+        return $"{minutes:00}:{seconds:00.00}";
     }
-
-    // Pause the timer
-    public void PauseTimer() => running = false;
-
-    // Resume the timer
-    public void ResumeTimer() => running = true;
-
-    // Get time in seconds (for ScoreSubmitter)
-    public float GetSeconds() => Mathf.Max(0f, currentTime);
-}
-
-public enum TimerFormats
-{
-    Whole,
-    TenthDecimal,
-    HundredthDecimal
 }
