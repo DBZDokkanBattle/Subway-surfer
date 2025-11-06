@@ -11,7 +11,7 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.position = player.transform.position + offset;
+        transform.position = Vector3.Lerp(player.transform.position + offset, player.transform.position + offset - Vector3.forward * Mathf.Sqrt(player.GetComponent<MoveForward>().tempSpeed*0.7f),0.2f);
 
         //Camera.main.fieldOfView = Mathf.Lerp(baseFov, baseFov + player.GetComponent<MoveForward>().tempSpeed/10, 0);
         Camera.main.fieldOfView = baseFov+ player.GetComponent<MoveForward>().speed / 20 + player.GetComponent<MoveForward>().tempSpeed/5;
