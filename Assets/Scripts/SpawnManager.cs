@@ -8,35 +8,19 @@ public class SpawnManager : MonoBehaviour
     public float coralDelay = 3.5f;
     public float decorationDelay = 0.1f;
     public int range;
-    private bool spawnable;
-    private int obstacledistance = 40;
-    private float lastPosition;
 
     public GameObject[] ObstaclePrefabs;
     public GameObject coralPrefab;
-
 
 
     private GameManager gm;
 
     void Start()
     {
-        lastPosition = transform.position.z;
-        obstacledistance = 5;
-        spawnable = true;
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
-    }
 
-    private void Update()
-    {
-        if (lastPosition - transform.position.z > obstacledistance && transform.position.z > 10) { 
-            spawnObstaclePrefabs(); 
-            SpawnCoral();
-            lastPosition = transform.position.z;
-            Debug.Log(transform.position.z - lastPosition);
-        }
-        Debug.Log(transform.position.z);
-        Debug.Log(lastPosition);
+        InvokeRepeating(nameof(spawnObstaclePrefabs), startTime, delayTime);
+        InvokeRepeating(nameof(SpawnCoral), startTime + 1f, coralDelay);
     }
 
     void spawnObstaclePrefabs()
@@ -45,7 +29,7 @@ public class SpawnManager : MonoBehaviour
 
         int lane = Random.Range(-range, range+1);
         int index = Random.Range(0, ObstaclePrefabs.Length);
-        Vector3 spawnPos = new Vector3(lane, 0.5f, 80 + player.transform.position.z);
+        Vector3 spawnPos = new Vector3(lane, 0.5f, 40 + player.transform.position.z);
 
         Instantiate(ObstaclePrefabs[index], spawnPos, ObstaclePrefabs[index].transform.rotation);
 
@@ -54,7 +38,7 @@ public class SpawnManager : MonoBehaviour
         {
             lane = Random.Range(-range, range + 1);
             index = Random.Range(0, ObstaclePrefabs.Length);
-            spawnPos = new Vector3(lane, 0.5f, 90 + player.transform.position.z);
+            spawnPos = new Vector3(lane, 0.5f, 40 + player.transform.position.z);
             Instantiate(ObstaclePrefabs[index], spawnPos, ObstaclePrefabs[index].transform.rotation);
         }
     }
